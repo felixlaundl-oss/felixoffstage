@@ -1,0 +1,89 @@
+---
+import Layout from "@/layouts/Layout.astro";
+---
+
+<Layout title="About — Felix Off Stage">
+  <style>
+    .about-wrap {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 4rem 0;
+    }
+    .about-photo {
+      width: 160px;
+      height: 160px;
+      object-fit: cover;
+      object-position: center top;
+      border-radius: 50%;
+      display: block;
+      margin: 0 auto 2rem;
+      filter: grayscale(20%);
+    }
+    .about-name {
+      text-align: center;
+      font-size: 2.2rem;
+      margin-bottom: 0.4rem;
+      color: var(--black);
+    }
+    .about-cities {
+      text-align: center;
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--burgund);
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      margin-bottom: 2.5rem;
+    }
+    .burgund-line {
+      width: 40px;
+      height: 1.5px;
+      background: var(--burgund);
+      margin: 0 auto 2.5rem;
+    }
+    .about-text p {
+      font-size: 1rem;
+      color: #444;
+      line-height: 1.85;
+      margin-bottom: 1.4rem;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+    }
+    .about-text p:last-child {
+      font-family: 'Inter', sans-serif;
+      font-style: normal;
+      font-size: 0.9rem;
+      color: var(--gray);
+      margin-bottom: 0;
+      border-top: 1px solid var(--gray-light);
+      padding-top: 1.4rem;
+    }
+  </style>
+
+  <div class="about-wrap">
+    <img src="/images/felix.png" alt="Felix" class="about-photo" />
+    <h1 class="about-name">Felix Laundl</h1>
+    <p class="about-cities">Vienna · Munich · Paris · London</p>
+    <div class="burgund-line"></div>
+    <div class="about-text">
+      <p>
+        Es gibt Momente im Theater, die sich in einen einbrennen — eine Geste, ein Schweigen, 
+        ein Licht das erlischt. Momente, nach denen man nicht mehr derselbe ist wie davor. 
+        Ich suche diese Momente. Ich lebe für sie.
+      </p>
+      <p>
+        Es gibt etwas Unersetzliches an einem verdunkelten Saal, einem angehaltenen Atem, 
+        zwei Stunden, in denen die Welt draußen aufhört zu existieren. Kein Algorithmus 
+        kuratiert es. Kein Scrollen unterbricht es. Es geschieht einfach — und dann ist es vorbei.
+      </p>
+      <p>
+        Was bleibt, ist das Nachklingen. Das Gespräch auf dem Heimweg. Die Szene, die man nicht loswird.
+      </p>
+      <p>
+        Felix Off Stage ist mein Versuch, genau das festzuhalten. Ich schreibe über das, was mich 
+        bewegt, was mich verstört, was ich nicht vergessen kann. Und ich will mehr Menschen in die 
+        Theaterhäuser und Opern dieser Welt locken — denn diese Kunst gehört allen.
+      </p>
+    </div>
+  </div>
+</Layout>
