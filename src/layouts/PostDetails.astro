@@ -1,19 +1,7 @@
 ---
 import { render, type CollectionEntry } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
-import Header from "@/components/Header.astro";
-import Footer from "@/components/Footer.astro";
-import Tag from "@/components/Tag.astro";
-import Datetime from "@/components/Datetime.astro";
-import EditPost from "@/components/EditPost.astro";
-import ShareLinks from "@/components/ShareLinks.astro";
-import BackButton from "@/components/BackButton.astro";
-import BackToTopButton from "@/components/BackToTopButton.astro";
-import { getPath } from "@/utils/getPath";
-import { slugifyStr } from "@/utils/slugify";
-import IconChevronLeft from "@/assets/icons/IconChevronLeft.svg";
-import IconChevronRight from "@/assets/icons/IconChevronRight.svg";
-import { SITE } from "@/config";
+import getSortedPosts from "@/utils/getSortedPosts";
 
 type Props = {
   post: CollectionEntry<"blog">;
@@ -21,265 +9,232 @@ type Props = {
 };
 
 const { post, posts } = Astro.props;
-
-const {
-  title,
-  author,
-  description,
-  ogImage: initOgImage,
-  canonicalURL,
-  pubDatetime,
-  modDatetime,
-  timezone,
-  tags,
-  hideEditPost,
-} = post.data;
-
+const { title, description, ogImage, pubDatetime, tags } = post.data;
 const { Content } = await render(post);
 
-let ogImageUrl: string | undefined;
+const ogImageUrl = typeof ogImage === "string" ? ogImage : undefined;
 
-// Determine OG image source
-if (typeof initOgImage === "string") {
-  ogImageUrl = initOgImage; // Remote OG image (absolute URL)
-} else if (initOgImage?.src) {
-  ogImageUrl = initOgImage.src; // Local asset
-}
-
-// Use dynamic OG image if enabled and no remote|local ogImage
-if (!ogImageUrl && SITE.dynamicOgImage) {
-  ogImageUrl = `${getPath(post.id, post.filePath)}/index.png`;
-}
-
-// Resolve OG image URL (or fallback to SITE.ogImage / default `og.png`)
-const ogImage = ogImageUrl
-  ? new URL(ogImageUrl, Astro.url.origin).href
-  : undefined;
-
-const layoutProps = {
-  title: `${title} | ${SITE.title}`,
-  author,
-  description,
-  pubDatetime,
-  modDatetime,
-  canonicalURL,
-  ogImage,
-  scrollSmooth: true,
-};
-
-/* ========== Prev/Next Posts ========== */
-
-const allPosts = posts.map(({ data: { title }, id, filePath }) => ({
-  id,
-  title,
-  filePath,
-}));
-
-const currentPostIndex = allPosts.findIndex(a => a.id === post.id);
-
-const prevPost = currentPostIndex !== 0 ? allPosts[currentPostIndex - 1] : null;
-const nextPost =
-  currentPostIndex !== allPosts.length ? allPosts[currentPostIndex + 1] : null;
+const sortedPosts = getSortedPosts(posts);
+const currentIndex = sortedPosts.findIndex(p => p.id === post.id);
+const prevPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : null;
+const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
 ---
 
-<Layout {...layoutProps}>
-  <Header />
-  <BackButton />
-  <main
-    id="main-content"
-    class:list={["app-layout pb-12", { "mt-8": !SITE.showBackButton }]}
-    data-pagefind-body
-  >
-    <h1
-      transition:name={slugifyStr(title.replaceAll(".", "-"))}
-      class="inline-block text-2xl font-bold text-accent sm:text-3xl"
-    >
-      {title}
-    </h1>
-    <div class="my-2 flex items-center gap-2">
-      <Datetime {pubDatetime} {modDatetime} {timezone} size="lg" />
-      <span
-        aria-hidden="true"
-        class:list={[
-          "max-sm:hidden",
-          { hidden: !SITE.editPost.enabled || hideEditPost },
-        ]}>|</span
-      >
-      <EditPost {hideEditPost} {post} class="max-sm:hidden" />
+<Layout title={`${title} — Felix Off Stage`} description={description}>
+  <style>
+    .post-wrap {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 3rem 0 5rem;
+    }
+
+    /* Back link */
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 2.5rem;
+      transition: color 0.2s;
+    }
+    .back:hover { color: var(--burgund); }
+
+    /* Cover image */
+    .cover {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      margin-bottom: 2.5rem;
+    }
+
+    /* Meta */
+    .post-meta {
+      margin-bottom: 2rem;
+    }
+    .post-tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.8rem;
+    }
+    .post-tag {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--burgund);
+      font-weight: 500;
+    }
+    .post-tag::after { content: "·"; margin-left: 0.5rem; color: var(--gray-light); }
+    .post-tag:last-child::after { content: ""; }
+
+    .post-title {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      line-height: 1.2;
+      margin-bottom: 0.8rem;
+      color: var(--black);
+    }
+    .post-description {
+      font-size: 1rem;
+      color: var(--gray);
+      font-style: italic;
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 0.8rem;
+      line-height: 1.6;
+    }
+    .post-date {
+      font-size: 0.75rem;
+      color: #aaa;
+      letter-spacing: 0.08em;
+    }
+    .burgund-line {
+      width: 40px;
+      height: 1.5px;
+      background: var(--burgund);
+      margin: 1.5rem 0 2.5rem;
+    }
+
+    /* Article content */
+    .prose {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      line-height: 1.9;
+      color: #333;
+    }
+    .prose p { margin-bottom: 1.5rem; }
+    .prose h2 {
+      font-size: 1.3rem;
+      margin: 2.5rem 0 1rem;
+      color: var(--black);
+      font-weight: 500;
+    }
+    .prose h3 {
+      font-size: 1.1rem;
+      margin: 2rem 0 0.8rem;
+      color: var(--black);
+    }
+    .prose strong { font-weight: 500; color: var(--black); }
+    .prose em { font-style: italic; }
+    .prose hr {
+      border: none;
+      border-top: 1px solid var(--gray-light);
+      margin: 2rem 0;
+    }
+    .prose blockquote {
+      border-left: 2px solid var(--burgund);
+      padding-left: 1.2rem;
+      margin: 1.5rem 0;
+      color: var(--gray);
+      font-style: italic;
+    }
+
+    /* Contact CTA */
+    .contact-cta {
+      margin-top: 4rem;
+      padding: 2rem;
+      border: 1px solid var(--gray-light);
+      background: white;
+      text-align: center;
+    }
+    .contact-cta p {
+      font-size: 0.85rem;
+      color: var(--gray);
+      font-style: italic;
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 1rem;
+    }
+    .contact-cta a {
+      display: inline-block;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: white;
+      background: var(--burgund);
+      padding: 0.7rem 1.8rem;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+    .contact-cta a:hover { background: #8B2020; color: white; }
+
+    /* Prev/Next */
+    .post-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--gray-light);
+    }
+    .post-nav a {
+      font-size: 0.8rem;
+      color: var(--gray);
+      transition: color 0.2s;
+      line-height: 1.4;
+    }
+    .post-nav a:hover { color: var(--burgund); }
+    .post-nav .nav-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--burgund);
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+    .post-nav .next { text-align: right; }
+  </style>
+
+  <div class="post-wrap">
+    <a href="/blog" class="back">← Alle Essays</a>
+
+    {ogImageUrl && <img src={ogImageUrl} alt={title} class="cover" />}
+
+    <div class="post-meta">
+      {tags && tags.length > 0 && (
+        <div class="post-tags">
+          {tags.map(tag => <span class="post-tag">{tag}</span>)}
+        </div>
+      )}
+      <h1 class="post-title">{title}</h1>
+      {description && <p class="post-description">{description}</p>}
+      <p class="post-date">
+        {pubDatetime?.toLocaleDateString("de-AT", { day: "2-digit", month: "long", year: "numeric" })}
+      </p>
     </div>
-    <article
-      id="article"
-      class="app-prose mt-8 w-full max-w-app prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)"
-    >
+
+    <div class="burgund-line"></div>
+
+    <article class="prose">
       <Content />
     </article>
 
-    <hr class="my-8 border-dashed" />
-
-    <EditPost class="sm:hidden" {hideEditPost} {post} />
-
-    <ul class="mt-4 mb-8 flex flex-wrap gap-4 sm:my-8">
-      {tags.map(tag => <Tag tag={slugifyStr(tag)} tagName={tag} size="sm" />)}
-    </ul>
-
-    <BackToTopButton />
-
-    <ShareLinks />
-
-    <hr class="my-6 border-dashed" />
-
-    <!-- Previous/Next Post Buttons -->
-    <div data-pagefind-ignore class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-      {
-        prevPost && (
-          <a
-            href={getPath(prevPost.id, prevPost.filePath)}
-            class="flex w-full gap-1 hover:opacity-75"
-          >
-            <IconChevronLeft class="inline-block flex-none rtl:rotate-180" />
-            <div>
-              <span>Previous Post</span>
-              <div class="text-sm text-accent/85">{prevPost.title}</div>
-            </div>
-          </a>
-        )
-      }
-      {
-        nextPost && (
-          <a
-            href={getPath(nextPost.id, nextPost.filePath)}
-            class="flex w-full justify-end gap-1 text-end hover:opacity-75 sm:col-start-2"
-          >
-            <div>
-              <span>Next Post</span>
-              <div class="text-sm text-accent/85">{nextPost.title}</div>
-            </div>
-            <IconChevronRight class="inline-block flex-none rtl:rotate-180" />
-          </a>
-        )
-      }
+    <!-- Contact CTA -->
+    <div class="contact-cta">
+      <p>Gedanken zu diesem Essay? Ich freue mich über jede Nachricht.</p>
+      <a href="/contact">Schreib mir →</a>
     </div>
-  </main>
-  <Footer />
+
+    <!-- Prev/Next -->
+    {(prevPost || nextPost) && (
+      <nav class="post-nav">
+        <div>
+          {prevPost && (
+            <a href={`/posts/${prevPost.id}/`}>
+              <span class="nav-label">← Vorheriger</span>
+              {prevPost.data.title}
+            </a>
+          )}
+        </div>
+        <div class="next">
+          {nextPost && (
+            <a href={`/posts/${nextPost.id}/`}>
+              <span class="nav-label">Nächster →</span>
+              {nextPost.data.title}
+            </a>
+          )}
+        </div>
+      </nav>
+    )}
+  </div>
 </Layout>
-
-<script is:inline data-astro-rerun>
-  /** Create a progress indicator
-   *  at the top */
-  function createProgressBar() {
-    // Create the main container div
-    const progressContainer = document.createElement("div");
-    progressContainer.className =
-      "progress-container fixed top-0 z-10 h-1 w-full bg-background";
-
-    // Create the progress bar div
-    const progressBar = document.createElement("div");
-    progressBar.className = "progress-bar h-1 w-0 bg-accent";
-    progressBar.id = "myBar";
-
-    // Append the progress bar to the progress container
-    progressContainer.appendChild(progressBar);
-
-    // Append the progress container to the document body or any other desired parent element
-    document.body.appendChild(progressContainer);
-  }
-  createProgressBar();
-
-  /** Update the progress bar
-   *  when user scrolls */
-  function updateScrollProgress() {
-    document.addEventListener("scroll", () => {
-      const winScroll =
-        document.body.scrollTop || document.documentElement.scrollTop;
-      const height =
-        document.documentElement.scrollHeight -
-        document.documentElement.clientHeight;
-      const scrolled = (winScroll / height) * 100;
-      if (document) {
-        const myBar = document.getElementById("myBar");
-        if (myBar) {
-          myBar.style.width = scrolled + "%";
-        }
-      }
-    });
-  }
-  updateScrollProgress();
-
-  /** Attaches links to headings in the document,
-   *  allowing sharing of sections easily */
-  function addHeadingLinks() {
-    const headings = Array.from(
-      document.querySelectorAll("h2, h3, h4, h5, h6")
-    );
-    for (const heading of headings) {
-      heading.classList.add("group");
-      const link = document.createElement("a");
-      link.className =
-        "heading-link ms-2 no-underline opacity-75 md:opacity-0 md:group-hover:opacity-100 md:focus:opacity-100";
-      link.href = "#" + heading.id;
-
-      const span = document.createElement("span");
-      span.ariaHidden = "true";
-      span.innerText = "#";
-      link.appendChild(span);
-      heading.appendChild(link);
-    }
-  }
-  addHeadingLinks();
-
-  /** Attaches copy buttons to code blocks in the document,
-   * allowing users to copy code easily. */
-  function attachCopyButtons() {
-    const copyButtonLabel = "Copy";
-    const codeBlocks = Array.from(document.querySelectorAll("pre"));
-
-    for (const codeBlock of codeBlocks) {
-      const wrapper = document.createElement("div");
-      wrapper.style.position = "relative";
-
-      // Check if --file-name-offset custom property exists
-      const computedStyle = getComputedStyle(codeBlock);
-      const hasFileNameOffset =
-        computedStyle.getPropertyValue("--file-name-offset").trim() !== "";
-
-      // Determine the top positioning class
-      const topClass = hasFileNameOffset
-        ? "top-(--file-name-offset)"
-        : "-top-3";
-
-      const copyButton = document.createElement("button");
-      copyButton.className = `copy-code absolute end-3 ${topClass} rounded bg-muted border border-muted px-2 py-1 text-xs leading-4 text-foreground font-medium`;
-      copyButton.innerHTML = copyButtonLabel;
-      codeBlock.setAttribute("tabindex", "0");
-      codeBlock.appendChild(copyButton);
-
-      // wrap codebock with relative parent element
-      codeBlock?.parentNode?.insertBefore(wrapper, codeBlock);
-      wrapper.appendChild(codeBlock);
-
-      copyButton.addEventListener("click", async () => {
-        await copyCode(codeBlock, copyButton);
-      });
-    }
-
-    async function copyCode(block, button) {
-      const code = block.querySelector("code");
-      const text = code?.innerText;
-
-      await navigator.clipboard.writeText(text ?? "");
-
-      // visual feedback that task is completed
-      button.innerText = "Copied";
-
-      setTimeout(() => {
-        button.innerText = copyButtonLabel;
-      }, 700);
-    }
-  }
-  attachCopyButtons();
-
-  /* Go to page start after page swap */
-  document.addEventListener("astro:after-swap", () =>
-    window.scrollTo({ left: 0, top: 0, behavior: "instant" })
-  );
-</script>
