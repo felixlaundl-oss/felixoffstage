@@ -1,0 +1,146 @@
+---
+import Layout from "@/layouts/Layout.astro";
+---
+
+<Layout title="Contact — Felix Off Stage">
+  <style>
+    .contact-wrap {
+      max-width: 580px;
+      margin: 0 auto;
+      padding: 4rem 0;
+    }
+    .contact-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--burgund);
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+    .contact-wrap h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.8rem;
+    }
+    .contact-wrap .subtitle {
+      font-size: 1rem;
+      color: var(--gray);
+      font-style: italic;
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+    .burgund-line {
+      width: 40px;
+      height: 1.5px;
+      background: var(--burgund);
+      margin-bottom: 3rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border: 1px solid var(--gray-light);
+      background: white;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      color: var(--black);
+      outline: none;
+      transition: border-color 0.2s;
+      font-weight: 300;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--burgund);
+    }
+    .form-group textarea {
+      height: 160px;
+      resize: vertical;
+    }
+    .submit-btn {
+      padding: 0.85rem 2.5rem;
+      background: var(--burgund);
+      color: white;
+      border: none;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+    .submit-btn:hover { background: #8B2020; }
+
+    .success-msg {
+      display: none;
+      padding: 1rem;
+      border: 1px solid var(--burgund);
+      color: var(--burgund);
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      font-style: italic;
+      font-family: 'Playfair Display', serif;
+    }
+  </style>
+
+  <div class="contact-wrap">
+    <p class="contact-label">Kontakt</p>
+    <h1>Get in Touch</h1>
+    <p class="subtitle">
+      Fragen, Kooperationen, Gedanken nach der Vorstellung —
+      ich freue mich über jede Nachricht.
+    </p>
+    <div class="burgund-line"></div>
+
+    <form id="contact-form" action="https://formspree.io/f/xgopdrkq" method="POST">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="Dein Name" required />
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="deine@email.com" required />
+      </div>
+      <div class="form-group">
+        <label for="message">Nachricht</label>
+        <textarea id="message" name="message" placeholder="Was möchtest du mir sagen?" required></textarea>
+      </div>
+      <button type="submit" class="submit-btn">Senden</button>
+      <div class="success-msg" id="success-msg">
+        Danke für deine Nachricht — ich melde mich bald.
+      </div>
+    </form>
+  </div>
+</Layout>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const successMsg = document.getElementById('success-msg') as HTMLElement;
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const response = await fetch('https://formspree.io/f/xgopdrkq', {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    });
+    if (response.ok) {
+      form.reset();
+      successMsg.style.display = 'block';
+    }
+  });
+</script>
