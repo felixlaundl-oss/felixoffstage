@@ -1,0 +1,202 @@
+---
+import Layout from "@/layouts/Layout.astro";
+
+const currentSeason = [
+  {
+    title: "Burgtheater — Frühjahr 2026",
+    description: "Das Burgtheater zählt zu den bedeutendsten deutschsprachigen Bühnen der Welt. Die Frühjahrsaison 2026 bringt neue Inszenierungen von Karin Henkel und Jossi Wieler — politisches Theater auf höchstem Niveau.",
+    tag: "Wien · Schauspiel",
+    link: "https://www.burgtheater.at",
+    image: "https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F3f369b9c-5d48-42e3-a96f-9f23ca2321d5_2000x2001.png"
+  },
+  {
+    title: "Wiener Staatsoper — Saison 2025/26",
+    description: "Die Staatsoper unter Philippe Jordan bietet diese Saison Highlights wie Wagners Ring-Zyklus und eine neue Produktion von Verdis Otello. Eines der dichtesten Opernprogramme Europas.",
+    tag: "Wien · Oper",
+    link: "https://www.wiener-staatsoper.at",
+    image: "https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F92f77511-27fe-469e-b0b7-68ae739503b4_1178x2069.jpeg"
+  },
+  {
+    title: "Wiener Festwochen 2026",
+    description: "Das wichtigste internationale Theaterfestival Wiens verwandelt die Stadt jedes Jahr im Mai und Juni in eine Bühne. 2026 mit Gastspielen aus Japan, Brasilien und dem Senegal.",
+    tag: "Wien · Festival",
+    link: "https://www.festwochen.at",
+    image: "https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F450d0984-dbd2-4a70-98db-28070e7f5d51_1232x1232.jpeg"
+  },
+  {
+    title: "Volksoper Wien — Aktuelle Saison",
+    description: "Die Volksoper ist das zugänglichste der großen Wiener Musiktheater — Operette, Musical, Ballett und Oper ohne die Schwere des Establishments. Ein unterschätztes Haus mit außergewöhnlichem Ensemble.",
+    tag: "Wien · Musiktheater",
+    link: "https://www.volksoper.at",
+    image: "https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F137fac57-d66e-45a2-ae78-a57379cf26d7_1113x1280.jpeg"
+  },
+];
+
+const recommendations = [
+  {
+    title: "The Empty Space — Peter Brook",
+    description: "Das wichtigste Buch über Theater das je geschrieben wurde. Brook fragt: Was braucht Theater wirklich? Ein leerer Raum, ein Mensch der geht, ein anderer der zuschaut — und schon beginnt es. Pflichtlektüre.",
+    tag: "Buch · Theorie",
+    link: "https://www.amazon.de/Empty-Space-Peter-Brook/dp/0878309837",
+    image: "https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F25b56114-63ef-44d6-9597-4a350f6dff6d_660x757.jpeg"
+  },
+  {
+    title: "nachtkritik.de",
+    description: "Das wichtigste deutschsprachige Portal für Theaterkritik. Täglich neue Rezensionen aus Wien, Berlin, Hamburg und der ganzen DACH-Region. Unverzichtbar für alle die wissen wollen was auf den großen Bühnen passiert.",
+    tag: "Website · Kritik",
+    link: "https://www.nachtkritik.de",
+    image: "https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb6e6c39a-2f70-4841-9a03-bce48d6ef717_641x824.png"
+  },
+  {
+    title: "NT Live — National Theatre London",
+    description: "Das National Theatre überträgt seine Produktionen live in Kinos weltweit. Eine der besten Möglichkeiten, internationale Spitzeninszenierungen zu sehen ohne nach London zu fliegen. Auch in Wien verfügbar.",
+    tag: "Streaming · London",
+    link: "https://www.ntlive.com",
+    image: "https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F25b56114-63ef-44d6-9597-4a350f6dff6d_660x757.jpeg"
+  },
+  {
+    title: "An Actor Prepares — Konstantin Stanislavski",
+    description: "Stanislavskis Standardwerk über die Kunst des Schauspielens veränderte das Theater des 20. Jahrhunderts grundlegend. Wer verstehen will wie Schauspieler denken und fühlen, beginnt hier.",
+    tag: "Buch · Schauspiel",
+    link: "https://www.amazon.de/Actor-Prepares-Constantin-Stanislavski/dp/0878309837",
+    image: "https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F92f77511-27fe-469e-b0b7-68ae739503b4_1178x2069.jpeg"
+  },
+];
+---
+
+<Layout title="Resources — Felix Off Stage">
+  <style>
+    .resources-header {
+      text-align: center;
+      padding: 3rem 0 2.5rem;
+      border-bottom: 1px solid var(--gray-light);
+      margin-bottom: 4rem;
+    }
+    .resources-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--burgund);
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+    .resources-header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    .resources-header p {
+      color: var(--gray);
+      font-style: italic;
+      font-family: 'Playfair Display', serif;
+    }
+    .burgund-line {
+      width: 40px;
+      height: 1.5px;
+      background: var(--burgund);
+      margin: 1.5rem auto 0;
+    }
+    .section-title {
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--burgund);
+      margin-bottom: 2rem;
+      font-weight: 500;
+    }
+    .cards { display: flex; flex-direction: column; margin-bottom: 5rem; }
+    .card {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      border: 1px solid var(--gray-light);
+      background: white;
+      margin-bottom: 2rem;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .card:hover {
+      border-color: var(--burgund);
+      box-shadow: 0 4px 24px rgba(107,26,26,0.06);
+    }
+    .card img {
+      width: 320px;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+    .card-body {
+      padding: 2rem 2.2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .card-tag {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--burgund);
+      margin-bottom: 0.7rem;
+      font-weight: 500;
+    }
+    .card-body h2 {
+      font-size: 1.4rem;
+      margin-bottom: 0.8rem;
+      line-height: 1.3;
+      color: var(--black);
+    }
+    .card-body p {
+      font-size: 0.88rem;
+      color: var(--gray);
+      line-height: 1.75;
+      margin-bottom: 1.2rem;
+    }
+    .card-link {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--burgund);
+      border-bottom: 1px solid var(--burgund);
+      padding-bottom: 1px;
+      align-self: flex-start;
+      font-weight: 500;
+    }
+    @media (max-width: 680px) {
+      .card { grid-template-columns: 1fr; }
+      .card img { width: 100%; height: 200px; }
+    }
+  </style>
+
+  <div class="resources-header">
+    <p class="resources-label">Kuratiert</p>
+    <h1>Resources</h1>
+    <p>Spielpläne, Empfehlungen und Lesestoff für Theaterliebhaber.</p>
+    <div class="burgund-line"></div>
+  </div>
+
+  <p class="section-title">Wien — Aktuelle Saison</p>
+  <div class="cards">
+    {currentSeason.map(item => (
+      <a href={item.link} target="_blank" rel="noopener" class="card">
+        <img src={item.image} alt={item.title} />
+        <div class="card-body">
+          <p class="card-tag">{item.tag}</p>
+          <h2>{item.title}</h2>
+          <p>{item.description}</p>
+          <span class="card-link">Zum Spielplan →</span>
+        </div>
+      </a>
+    ))}
+  </div>
+
+  <p class="section-title">Empfehlungen</p>
+  <div class="cards">
+    {recommendations.map(item => (
+      <a href={item.link} target="_blank" rel="noopener" class="card">
+        <img src={item.image} alt={item.title} />
+        <div class="card-body">
+          <p class="card-tag">{item.tag}</p>
+          <h2>{item.title}</h2>
+          <p>{item.description}</p>
+          <span class="card-link">Entdecken →</span>
+        </div>
+      </a>
+    ))}
+  </div>
+</Layout>
