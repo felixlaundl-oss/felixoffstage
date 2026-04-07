@@ -1,0 +1,198 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import getSortedPosts from "@/utils/getSortedPosts";
+
+const posts = await getCollection("blog");
+const sortedPosts = getSortedPosts(posts);
+
+const allTags = [...new Set(sortedPosts.flatMap(p => p.data.tags ?? []))];
+---
+
+<Layout title="Blog — Felix Off Stage">
+  <style>
+    .blog-header {
+      text-align: center;
+      padding: 3rem 0 2.5rem;
+      border-bottom: 1px solid var(--gray-light);
+      margin-bottom: 3rem;
+    }
+    .blog-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--burgund);
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+    .blog-header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .blog-header p {
+      color: var(--gray);
+      font-style: italic;
+      font-family: 'Playfair Display', serif;
+    }
+    .burgund-line {
+      width: 40px;
+      height: 1.5px;
+      background: var(--burgund);
+      margin: 1.5rem auto 0;
+    }
+
+    /* Tags filter */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 3rem;
+    }
+    .tag-btn {
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.9rem;
+      border: 1px solid var(--gray-light);
+      background: white;
+      color: var(--gray);
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.2s;
+    }
+    .tag-btn:hover, .tag-btn.active {
+      border-color: var(--burgund);
+      color: var(--burgund);
+      background: white;
+    }
+
+    /* Posts list */
+    .posts-list { display: flex; flex-direction: column; gap: 0; }
+    .post-item {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 2rem;
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--gray-light);
+      text-decoration: none;
+      color: inherit;
+      transition: opacity 0.2s;
+    }
+    .post-item:hover { opacity: 0.75; }
+    .post-item img {
+      width: 200px;
+      height: 130px;
+      object-fit: cover;
+    }
+    .post-placeholder {
+      width: 200px;
+      height: 130px;
+      background: #f0ebe4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .post-meta {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .post-tag {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--burgund);
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    .post-meta h2 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+    }
+    .post-meta p {
+      font-size: 0.85rem;
+      color: var(--gray);
+      line-height: 1.6;
+      margin-bottom: 0.75rem;
+    }
+    .post-info {
+      font-size: 0.72rem;
+      color: #aaa;
+      letter-spacing: 0.06em;
+    }
+
+    .no-posts {
+      text-align: center;
+      padding: 4rem 0;
+      color: var(--gray);
+      font-style: italic;
+      font-family: 'Playfair Display', serif;
+    }
+  </style>
+
+  <div class="blog-header">
+    <p class="blog-label">Essays & Kritiken</p>
+    <h1>Blog</h1>
+    <p>Gedanken über Theater, Oper und darstellende Kunst in Europa.</p>
+    <div class="burgund-line"></div>
+  </div>
+
+  {allTags.length > 0 && (
+    <div class="tags" id="tag-filter">
+      <button class="tag-btn active" data-tag="all">Alle</button>
+      {allTags.map(tag => (
+        <button class="tag-btn" data-tag={tag}>{tag}</button>
+      ))}
+    </div>
+  )}
+
+  {sortedPosts.length === 0 ? (
+    <div class="no-posts">
+      <p>Erste Essays erscheinen bald.</p>
+    </div>
+  ) : (
+    <div class="posts-list" id="posts-list">
+      {sortedPosts.map(post => (
+        <a href={`/posts/${post.id}/`} class="post-item" data-tags={JSON.stringify(post.data.tags ?? [])}>
+          {post.data.ogImage && typeof post.data.ogImage === "string" ? (
+            <img src={post.data.ogImage} alt={post.data.title} />
+          ) : (
+            <div class="post-placeholder">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#6B1A1A" stroke-width="0.8" opacity="0.3">
+                <rect x="3" y="3" width="18" height="18" rx="1"/>
+                <path d="M3 9h18M9 21V9"/>
+              </svg>
+            </div>
+          )}
+          <div class="post-meta">
+            {post.data.tags?.[0] && <p class="post-tag">{post.data.tags[0]}</p>}
+            <h2>{post.data.title}</h2>
+            <p>{post.data.description}</p>
+            <span class="post-info">
+              {post.data.pubDatetime?.toLocaleDateString("de-AT", { day: "2-digit", month: "long", year: "numeric" })}
+            </span>
+          </div>
+        </a>
+      ))}
+    </div>
+  )}
+</Layout>
+
+<script>
+  const buttons = document.querySelectorAll('.tag-btn');
+  const posts = document.querySelectorAll('.post-item');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const tag = btn.getAttribute('data-tag');
+      posts.forEach(post => {
+        const tags = JSON.parse(post.getAttribute('data-tags') || '[]');
+        (post as HTMLElement).style.display =
+          tag === 'all' || tags.includes(tag) ? 'grid' : 'none';
+      });
+    });
+  });
+</script>
