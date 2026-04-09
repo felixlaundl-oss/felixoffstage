@@ -10,137 +10,160 @@ const recentPosts = sortedPosts.slice(0, 3);
 
 <Layout title="Felix Off Stage — Art & Theater">
   <style>
+    /* HERO */
     .hero {
+      width: 100%;
+      min-height: 88vh;
+      background: #0D1526;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-col {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 56px;
+      opacity: 0.07;
+    }
+    .hero-col-left { left: 0; }
+    .hero-col-right { right: 0; transform: scaleX(-1); }
+    .hero-content {
       text-align: center;
-      padding: 5rem 0 4rem;
-      border-bottom: 1px solid var(--gray-light);
-      margin-bottom: 4rem;
+      padding: 4rem 2rem;
+      max-width: 800px;
+      position: relative;
+      z-index: 2;
     }
     .hero-label {
-      font-size: 0.7rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--burgund);
-      margin-bottom: 1.5rem;
-      font-weight: 500;
-    }
-    .hero h1 {
-      font-size: clamp(2.8rem, 6vw, 4.5rem);
-      color: var(--black);
-      margin-bottom: 1.2rem;
-      line-height: 1.1;
-    }
-    .hero-sub {
-      font-size: 1rem;
-      color: var(--gray);
-      font-style: italic;
-      font-family: 'Playfair Display', serif;
-      margin-bottom: 2.5rem;
-    }
-    .burgund-line {
-      width: 48px;
-      height: 1.5px;
-      background: var(--burgund);
-      margin: 0 auto 2.5rem;
-    }
-
-    /* Email signup */
-    .signup {
-      display: flex;
-      gap: 0;
-      max-width: 420px;
-      margin: 0 auto;
-    }
-    .signup input {
-      flex: 1;
-      padding: 0.75rem 1rem;
-      border: 1px solid var(--gray-light);
-      border-right: none;
-      background: white;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.85rem;
-      color: var(--black);
-      outline: none;
-    }
-    .signup input::placeholder { color: #aaa; }
-    .signup button {
-      padding: 0.75rem 1.4rem;
-      background: var(--burgund);
-      color: white;
-      border: none;
-      font-size: 0.75rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      font-family: 'Inter', sans-serif;
-      cursor: pointer;
-      font-weight: 500;
-      transition: background 0.2s;
-    }
-    .signup button:hover { background: #8B2020; }
-
-    /* Recent posts */
-    .section-label {
-      font-size: 0.7rem;
-      letter-spacing: 0.25em;
+      font-size: 0.68rem;
+      letter-spacing: 0.35em;
       text-transform: uppercase;
       color: var(--burgund);
       margin-bottom: 2rem;
       font-weight: 500;
     }
-    .posts-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 2rem;
-      margin-bottom: 3rem;
+    .hero h1 {
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      color: #FFFFFF;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.01em;
     }
-    .post-card {
+    .hero-sub {
+      font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+      color: #8899BB;
+      font-style: italic;
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 3rem;
+      line-height: 1.7;
+    }
+    .hero-line { width: 56px; height: 1px; background: var(--burgund); margin: 0 auto; }
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #2A3450;
       display: flex;
       flex-direction: column;
-      border: 1px solid var(--gray-light);
-      background: white;
-      transition: border-color 0.2s;
+      align-items: center;
+      gap: 0.5rem;
     }
-    .post-card:hover { border-color: var(--burgund); }
-    .post-card img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
+    .hero-scroll::after { content: ''; width: 1px; height: 36px; background: linear-gradient(to bottom, #2A3450, transparent); }
+
+    /* Transition hero to cream */
+    .hero-to-cream {
+      height: 48px;
+      background: linear-gradient(to bottom, #0D1526 0%, #2a2018 50%, #F5EFE6 100%);
     }
-    .post-card-placeholder {
-      width: 100%;
-      height: 180px;
-      background: #f0ebe4;
+
+    /* POSTS */
+    .posts-section {
+      background: var(--cream);
+      padding: 4rem 0 5rem;
+    }
+    .posts-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 3rem;
+    }
+    .section-header {
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
+      margin-bottom: 2.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(107,26,26,0.2);
     }
-    .post-card-placeholder svg { opacity: 0.15; }
-    .post-card-body { padding: 1.2rem; flex: 1; }
-    .post-tag {
-      font-size: 0.65rem;
-      letter-spacing: 0.15em;
+    .section-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.25em;
       text-transform: uppercase;
       color: var(--burgund);
-      margin-bottom: 0.5rem;
       font-weight: 500;
     }
-    .post-card h3 {
-      font-size: 1.05rem;
-      margin-bottom: 0.5rem;
-      line-height: 1.3;
-      color: var(--black);
+    .section-link {
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #888;
+      transition: color 0.2s;
     }
-    .post-card p {
-      font-size: 0.82rem;
-      color: var(--gray);
-      line-height: 1.6;
+    .section-link:hover { color: var(--burgund); }
+
+    .posts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.8rem;
     }
-    .all-posts {
-      text-align: center;
-      margin-top: 1rem;
+
+    @keyframes cardIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+    .post-card {
+      background: var(--white);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+      transition: box-shadow 0.3s, transform 0.3s;
+      border-left: 2px solid var(--burgund);
+      animation: cardIn 0.5s ease forwards;
     }
-    .all-posts a {
-      font-size: 0.75rem;
+    .post-card:nth-child(2) { animation-delay: 0.08s; }
+    .post-card:nth-child(3) { animation-delay: 0.16s; }
+    .post-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-5px); }
+    .post-card-img { width: 100%; height: 200px; object-fit: cover; }
+    .post-card-placeholder { width: 100%; height: 200px; background: #1a2030; display: flex; align-items: center; justify-content: center; }
+    .post-card-body { padding: 1.4rem; flex: 1; display: flex; flex-direction: column; }
+    .post-card-tag { font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--burgund); margin-bottom: 0.5rem; font-weight: 500; }
+    .post-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; line-height: 1.3; color: var(--black); }
+    .post-card p { font-size: 0.82rem; color: var(--gray); line-height: 1.65; flex: 1; }
+    .post-card-date { font-size: 0.68rem; color: #aaa; margin-top: 1rem; letter-spacing: 0.06em; }
+
+    /* ABOUT */
+    .about-strip {
+      background: #FFFFFF;
+      padding: 5rem 0;
+      border-top: 1px solid var(--gray-light);
+    }
+    .about-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 3rem;
+    }
+    .about-label { font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--burgund); margin-bottom: 1rem; font-weight: 500; }
+    .about-strip h2 { font-size: clamp(1.8rem, 3vw, 2.4rem); margin-bottom: 1.2rem; color: var(--black); }
+    .about-strip p { font-size: 1rem; color: var(--gray); font-style: italic; font-family: 'Playfair Display', serif; line-height: 1.85; max-width: 600px; }
+    .about-link {
+      display: inline-block;
+      margin-top: 2rem;
+      font-size: 0.7rem;
       letter-spacing: 0.15em;
       text-transform: uppercase;
       color: var(--burgund);
@@ -149,51 +172,100 @@ const recentPosts = sortedPosts.slice(0, 3);
       font-weight: 500;
       transition: opacity 0.2s;
     }
-    .all-posts a:hover { opacity: 0.7; }
+    .about-link:hover { opacity: 0.7; color: var(--burgund); }
+
+    @media (max-width: 1024px) { .posts-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 640px) {
+      .posts-grid { grid-template-columns: 1fr; }
+      .posts-inner { padding: 0 1.5rem; }
+      .about-inner { padding: 0 1.5rem; }
+      .about-strip { padding: 3rem 0; }
+      .posts-section { padding: 3rem 0 4rem; }
+    }
   </style>
 
   <!-- Hero -->
   <section class="hero">
-    <p class="hero-label">Art & Theater</p>
-    <h1>Felix Off Stage</h1>
-    <p class="hero-sub">Essays and criticism from the wings of European theater.</p>
-    <div class="burgund-line"></div>
-    <form class="signup" action="https://app.us1.list-manage.com/subscribe/post" method="POST">
-      <input type="email" name="EMAIL" placeholder="Your email address" required />
-      <button type="submit">Subscribe</button>
-    </form>
+    <svg class="hero-col hero-col-left" viewBox="0 0 56 800" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <rect x="8" y="80" width="40" height="640" fill="none" stroke="#C5CEDF" stroke-width="1"/>
+      <line x1="16" y1="80" x2="16" y2="720" stroke="#C5CEDF" stroke-width="0.5"/>
+      <line x1="22" y1="80" x2="22" y2="720" stroke="#C5CEDF" stroke-width="0.5"/>
+      <line x1="28" y1="80" x2="28" y2="720" stroke="#C5CEDF" stroke-width="0.5"/>
+      <line x1="34" y1="80" x2="34" y2="720" stroke="#C5CEDF" stroke-width="0.5"/>
+      <line x1="40" y1="80" x2="40" y2="720" stroke="#C5CEDF" stroke-width="0.5"/>
+      <path d="M0 80 Q28 65 56 80" fill="none" stroke="#C5CEDF" stroke-width="1.2"/>
+      <path d="M0 68 Q28 50 56 68" fill="none" stroke="#C5CEDF" stroke-width="0.8"/>
+      <path d="M0 720 Q28 735 56 720" fill="none" stroke="#C5CEDF" stroke-width="1.2"/>
+    </svg>
+
+    <div class="hero-content">
+      <p class="hero-label">Art & Theater</p>
+      <h1>Felix Off Stage</h1>
+      <p class="hero-sub">Essays and criticism from the wings of European theater.</p>
+      <div class="hero-line"></div>
+    </div>
+
+    <svg class="hero-col hero-col-right" viewBox="0 0 56 800" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <rect x="8" y="80" width="40" height="640" fill="none" stroke="#C5CEDF" stroke-width="1"/>
+      <line x1="16" y1="80" x2="16" y2="720" stroke="#C5CEDF" stroke-width="0.5"/>
+      <line x1="22" y1="80" x2="22" y2="720" stroke="#C5CEDF" stroke-width="0.5"/>
+      <line x1="28" y1="80" x2="28" y2="720" stroke="#C5CEDF" stroke-width="0.5"/>
+      <line x1="34" y1="80" x2="34" y2="720" stroke="#C5CEDF" stroke-width="0.5"/>
+      <line x1="40" y1="80" x2="40" y2="720" stroke="#C5CEDF" stroke-width="0.5"/>
+      <path d="M0 80 Q28 65 56 80" fill="none" stroke="#C5CEDF" stroke-width="1.2"/>
+      <path d="M0 68 Q28 50 56 68" fill="none" stroke="#C5CEDF" stroke-width="0.8"/>
+      <path d="M0 720 Q28 735 56 720" fill="none" stroke="#C5CEDF" stroke-width="1.2"/>
+    </svg>
+
+    <div class="hero-scroll">Scroll</div>
   </section>
 
-  <!-- Recent Posts -->
-  <section>
-    <p class="section-label">Recent Essays</p>
-    <div class="posts-grid">
-      {recentPosts.length === 0 ? (
-        <p style="color: var(--gray); font-style: italic;">Erste Essays erscheinen bald.</p>
-      ) : (
-        recentPosts.map((post) => (
-          <a href={`/posts/${post.id}/`} class="post-card">
-            {post.data.ogImage ? (
-              <img src={typeof post.data.ogImage === "string" ? post.data.ogImage : ""} alt={post.data.title} />
-            ) : (
-              <div class="post-card-placeholder">
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#6B1A1A" stroke-width="1">
-                  <rect x="3" y="3" width="18" height="18" rx="1"/>
-                  <path d="M3 9h18M9 21V9"/>
-                </svg>
+  <div class="hero-to-cream"></div>
+
+  <!-- Posts -->
+  <section class="posts-section">
+    <div class="posts-inner">
+      <div class="section-header">
+        <span class="section-label">Aktuelle Essays</span>
+        <a href="/blog" class="section-link">Alle Essays →</a>
+      </div>
+      <div class="posts-grid">
+        {recentPosts.length === 0 ? (
+          <p style="color: var(--gray); font-style: italic; grid-column: 1/-1; padding: 2rem 0;">Erste Essays erscheinen bald.</p>
+        ) : (
+          recentPosts.map(post => (
+            <a href={`/posts/${post.id}/`} class="post-card">
+              {typeof post.data.ogImage === "string" ? (
+                <img src={post.data.ogImage} alt={post.data.title} class="post-card-img" />
+              ) : (
+                <div class="post-card-placeholder">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#C5CEDF" stroke-width="0.8" opacity="0.3">
+                    <rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/>
+                  </svg>
+                </div>
+              )}
+              <div class="post-card-body">
+                {post.data.tags?.[0] && <p class="post-card-tag">{post.data.tags[0]}</p>}
+                <h3>{post.data.title}</h3>
+                <p>{post.data.description}</p>
+                <span class="post-card-date">
+                  {post.data.pubDatetime?.toLocaleDateString("de-AT", { day: "2-digit", month: "short", year: "numeric" }).replace(/\./g, " ·").toUpperCase()}
+                </span>
               </div>
-            )}
-            <div class="post-card-body">
-              {post.data.tags?.[0] && <p class="post-tag">{post.data.tags[0]}</p>}
-              <h3>{post.data.title}</h3>
-              <p>{post.data.description}</p>
-            </div>
-          </a>
-        ))
-      )}
-    </div>
-    <div class="all-posts">
-      <a href="/blog">All Essays →</a>
+            </a>
+          ))
+        )}
+      </div>
     </div>
   </section>
+
+  <!-- About -->
+  <div class="about-strip">
+    <div class="about-inner">
+      <p class="about-label">Über diesen Blog</p>
+      <h2>Felix Off Stage</h2>
+      <p>Es gibt Momente im Theater, die sich in einen einbrennen — eine Geste, ein Schweigen, ein Licht das erlischt. Ich suche diese Momente. Ich schreibe über das, was mich bewegt, was mich verstört, was ich nicht vergessen kann.</p>
+      <a href="/about" class="about-link">Mehr über mich →</a>
+    </div>
+  </div>
 </Layout>
