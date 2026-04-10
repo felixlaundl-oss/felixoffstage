@@ -1,62 +1,72 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 
-const currentSeason = [
+const burgtheater = [
   {
     title: "Burgtheater Wien",
     description: "Das bedeutendste deutschsprachige Theater der Welt. Die Frühjahrsaison 2026 bringt neue Inszenierungen von Karin Henkel und Jossi Wieler — politisches Theater auf höchstem Niveau.",
     tag: "Wien · Schauspiel",
     link: "https://www.burgtheater.at",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Wien_-_Burgtheater_%281%29.JPG/1280px-Wien_-_Burgtheater_%281%29.JPG"
+    image: "/images/Burgtheater.jpg"
   },
   {
     title: "Wiener Staatsoper",
     description: "Die Staatsoper bietet diese Saison Highlights wie Wagners Ring-Zyklus und eine neue Produktion von Verdis Otello. Eines der dichtesten Opernprogramme Europas.",
     tag: "Wien · Oper",
     link: "https://www.wiener-staatsoper.at",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Vienna_State_Opera_-_front_view.jpg/1280px-Vienna_State_Opera_-_front_view.jpg"
+    image: "/images/Wiener Staatssoper.jpg"
   },
   {
     title: "Wiener Festwochen 2026",
     description: "Das wichtigste internationale Theaterfestival Wiens. 2026 mit Gastspielen aus Japan, Brasilien und dem Senegal — Wien als Bühne der Welt.",
     tag: "Wien · Festival",
     link: "https://www.festwochen.at",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Wien_Rathaus_2006.jpg/1280px-Wien_Rathaus_2006.jpg"
-  },
-  {
-    title: "Volksoper Wien",
-    description: "Das zugänglichste der großen Wiener Musiktheater — Operette, Musical, Ballett und Oper. Ein unterschätztes Haus mit außergewöhnlichem Ensemble.",
-    tag: "Wien · Musiktheater",
-    link: "https://www.volksoper.at",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Volksoper_Wien.jpg/1280px-Volksoper_Wien.jpg"
+    image: "/images/Wiener Festwochen.webp"
   },
   {
     title: "Theater in der Josefstadt",
     description: "Das älteste noch bespielbare Theater Wiens — gegründet 1788. Bekannt für seine Ensemblekultur und ein Programm das klassische Stücke mit zeitgenössischen Stimmen verbindet.",
     tag: "Wien · Schauspiel",
     link: "https://www.josefstadt.org",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Theater_in_der_Josefstadt_Wien.jpg/1280px-Theater_in_der_Josefstadt_Wien.jpg"
+    image: "/images/JOsefsstadtt.jpg"
   },
   {
     title: "Theater Akzent Wien",
     description: "Ein kleineres Haus mit großer Strahlkraft — bekannt für mutige Programmentscheidungen und Produktionen wie Ludwig XIX. von Strunk und Schrenk.",
     tag: "Wien · Freie Szene",
     link: "https://www.theater-akzent.at",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Wien_-_Konzerthaus_%281%29.JPG/1280px-Wien_-_Konzerthaus_%281%29.JPG"
+    image: "/images/theater akzent.jpg"
   },
   {
     title: "Bronski & Grünberg Wien",
     description: "Das queere Theater Wiens — politisch, persönlich, provokant. Ein Haus das Geschichten erzählt die anderswo nicht erzählt werden.",
     tag: "Wien · Freie Szene",
     link: "https://www.bronskiundgruenberg.at",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Vienna_-_Naschmarkt_-_0454.jpg/1280px-Vienna_-_Naschmarkt_-_0454.jpg"
+    image: "/images/Brosnki grünberg.jpg"
   },
   {
     title: "Residenztheater München",
     description: "Das Staatstheater der bayerischen Hauptstadt — eines der wichtigsten deutschsprachigen Sprechtheater mit einem Ensemble das zur europäischen Spitze zählt.",
     tag: "München · Schauspiel",
     link: "https://www.residenztheater.de",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/M%C3%BCnchen_Residenztheater.jpg/1280px-M%C3%BCnchen_Residenztheater.jpg"
+    image: "/images/Reidenz theater.jpg"
+  },
+];
+
+const volkstheater = [
+  {
+    title: "Volksoper Wien",
+    description: "Das zugänglichste der großen Wiener Musiktheater — Operette, Musical, Ballett und Oper ohne die Schwere des Establishments. Ein unterschätztes Haus mit außergewöhnlichem Ensemble.",
+    tag: "Wien · Musiktheater",
+    link: "https://www.volksoper.at",
+    image: "/images/Volksoper.JPG"
+  },
+  {
+    title: "Volkstheater Wien",
+    description: "Das Volkstheater steht für zugängliches, politisch engagiertes Theater im Herzen Wiens. Unter der Leitung von Kay Voges hat das Haus in den letzten Jahren mutig neue Wege eingeschlagen.",
+    tag: "Wien · Schauspiel",
+    link: "https://www.volkstheater.at",
+    image: "/images/Volkstheater.jpg"
   },
 ];
 
@@ -66,28 +76,28 @@ const recommendations = [
     description: "Das wichtigste Buch über Theater das je geschrieben wurde. Brook fragt: Was braucht Theater wirklich? Ein leerer Raum, ein Mensch der geht, ein anderer der zuschaut. Pflichtlektüre.",
     tag: "Buch · Theorie",
     link: "https://www.amazon.de/Empty-Space-Peter-Brook/dp/0878309837",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Deutsches_Theater_Berlin_2015.jpg/1280px-Deutsches_Theater_Berlin_2015.jpg"
+    image: "/images/peter brok.jpg"
   },
   {
     title: "nachtkritik.de",
     description: "Das wichtigste deutschsprachige Portal für Theaterkritik. Täglich neue Rezensionen aus Wien, Berlin, Hamburg und der ganzen DACH-Region. Unverzichtbar.",
     tag: "Website · Kritik",
     link: "https://www.nachtkritik.de",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Deutsches_Theater_M%C3%BCnchen.jpg/1280px-Deutsches_Theater_M%C3%BCnchen.jpg"
+    image: "/images/nachtkritik.jpg"
   },
   {
     title: "NT Live — National Theatre London",
-    description: "Das National Theatre überträgt seine Produktionen live in Kinos weltweit. Eine der besten Möglichkeiten, internationale Spitzeninszenierungen zu sehen ohne nach London zu fliegen.",
+    description: "Das National Theatre überträgt seine Produktionen live in Kinos weltweit. Eine der besten Möglichkeiten internationale Spitzeninszenierungen zu sehen ohne nach London zu fliegen.",
     tag: "Streaming · London",
     link: "https://www.ntlive.com",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/National_Theatre%2C_London_%28cropped%29.jpg/1280px-National_Theatre%2C_London_%28cropped%29.jpg"
+    image: "/images/National theater live.webp"
   },
   {
     title: "An Actor Prepares — Stanislavski",
     description: "Stanislavskis Standardwerk über die Kunst des Schauspielens veränderte das Theater des 20. Jahrhunderts grundlegend. Wer verstehen will wie Schauspieler denken und fühlen, beginnt hier.",
     tag: "Buch · Schauspiel",
     link: "https://www.amazon.de/Actor-Prepares-Constantin-Stanislavski/dp/0878309837",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Moscow_Art_Theatre.jpg/1280px-Moscow_Art_Theatre.jpg"
+    image: "/images/Stanislav.jpg"
   },
 ];
 ---
@@ -108,9 +118,10 @@ const recommendations = [
     .resources-body { background: var(--cream); padding: 4rem 0 6rem; }
     .resources-inner { max-width: 1200px; margin: 0 auto; padding: 0 3rem; }
 
-    .section-title { font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--burgund); margin-bottom: 2rem; font-weight: 500; padding-bottom: 0.8rem; border-bottom: 1px solid rgba(107,26,26,0.15); }
+    .section-title { font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--burgund); margin-bottom: 2rem; font-weight: 500; padding-bottom: 0.8rem; border-bottom: 1px solid rgba(107,26,26,0.15); margin-top: 4rem; }
+    .section-title:first-of-type { margin-top: 0; }
 
-    .cards { display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 5rem; }
+    .cards { display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 1rem; }
 
     .card {
       display: grid;
@@ -148,9 +159,25 @@ const recommendations = [
 
   <div class="resources-body">
     <div class="resources-inner">
+
       <p class="section-title">Theaterhäuser</p>
       <div class="cards">
-        {currentSeason.map(item => (
+        {burgtheater.map(item => (
+          <a href={item.link} target="_blank" rel="noopener" class="card">
+            <img src={item.image} alt={item.title} />
+            <div class="card-body">
+              <p class="card-tag">{item.tag}</p>
+              <h2>{item.title}</h2>
+              <p>{item.description}</p>
+              <span class="card-link">Zum Spielplan →</span>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <p class="section-title">Volkstheater</p>
+      <div class="cards">
+        {volkstheater.map(item => (
           <a href={item.link} target="_blank" rel="noopener" class="card">
             <img src={item.image} alt={item.title} />
             <div class="card-body">
@@ -177,6 +204,7 @@ const recommendations = [
           </a>
         ))}
       </div>
+
     </div>
   </div>
 </Layout>
