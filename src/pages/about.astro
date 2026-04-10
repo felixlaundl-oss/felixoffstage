@@ -7,7 +7,7 @@ import Layout from "@/layouts/Layout.astro";
     .about-wrap {
       max-width: 680px;
       margin: 0 auto;
-      padding: 4rem 0;
+      padding: 4rem 2rem;
     }
     .about-photo {
       width: 160px;
@@ -49,6 +49,25 @@ import Layout from "@/layouts/Layout.astro";
       font-family: 'Playfair Display', serif;
       font-style: italic;
     }
+    .about-text p.no-italic {
+      font-style: normal;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      color: var(--gray);
+      border-top: 1px solid var(--gray-light);
+      padding-top: 1.4rem;
+      margin-top: 0.5rem;
+    }
+    .about-text p.welcome {
+      font-style: normal;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--black);
+      border-top: none;
+      padding-top: 0;
+      margin-top: 0;
+    }
     .about-text p:last-child {
       font-family: 'Inter', sans-serif;
       font-style: normal;
@@ -80,7 +99,7 @@ import Layout from "@/layouts/Layout.astro";
       </p>
       <p class="about-divider">Felix Off Stage ist mein Versuch, davon zu erzählen. Nicht als Kritiker, 
         der bewertet. Sondern als jemand, der hingeht, aufpasst, und danach nicht schlafen kann.</p>
-      <p class="about-welcome"><strong>Herzlich willkommen.</strong></p>
+      <p class="welcome"><strong>Herzlich willkommen.</strong></p>
     </div>
   </div>
 </Layout>
