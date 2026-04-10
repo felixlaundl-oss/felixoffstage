@@ -1,0 +1,53 @@
+---
+import Layout from "@/layouts/Layout.astro";
+---
+
+<Layout title="Datenschutzerklärung — Felix Off Stage">
+  <style>
+    .dsgvo-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+    }
+    .dsgvo-label { font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--burgund); margin-bottom: 1rem; font-weight: 500; }
+    .dsgvo-wrap h1 { font-size: 2.2rem; margin-bottom: 2rem; color: var(--black); }
+    .dsgvo-wrap h2 { font-size: 0.75rem; margin: 2.5rem 0 0.8rem; color: var(--black); font-family: 'Inter', sans-serif; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; }
+    .dsgvo-wrap p { font-size: 0.9rem; color: var(--gray); line-height: 1.8; margin-bottom: 0.8rem; }
+    .dsgvo-wrap a { color: var(--burgund); border-bottom: 1px solid rgba(107,26,26,0.3); }
+    .dsgvo-wrap a:hover { opacity: 0.7; }
+    .divider { border: none; border-top: 1px solid var(--gray-light); margin: 2rem 0; }
+    @media (max-width: 640px) { .dsgvo-wrap { padding: 3rem 1.5rem 4rem; } }
+  </style>
+
+  <div class="dsgvo-wrap">
+    <p class="dsgvo-label">Rechtliches</p>
+    <h1>Datenschutzerklärung</h1>
+
+    <p>Der Schutz Ihrer persönlichen Daten ist uns ein wichtiges Anliegen. Diese Datenschutzerklärung informiert Sie über die Verarbeitung personenbezogener Daten auf felixoffstage.com gemäß der Datenschutz-Grundverordnung (DSGVO).</p>
+
+    <h2>Verantwortlicher</h2>
+    <p>Felix Laundl, Postgasse 10, 1010 Wien, Österreich<br/>
+    E-Mail: <a href="mailto:felix@felixoffstage.com">felix@felixoffstage.com</a></p>
+
+    <h2>Hosting</h2>
+    <p>Diese Website wird über Vercel Inc., 340 Pine Street, Suite 900, San Francisco, CA 94104, USA gehostet. Beim Aufruf der Website werden automatisch Server-Logfiles erstellt, die IP-Adresse, Browsertyp, Betriebssystem und Zugriffszeit enthalten. Diese Daten werden ausschließlich zur technischen Bereitstellung der Website verwendet. Weitere Informationen: <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener">Vercel Privacy Policy</a>.</p>
+
+    <h2>Kontaktformular</h2>
+    <p>Wenn Sie das Kontaktformular nutzen, werden Ihre Angaben (Name, E-Mail-Adresse, Nachricht) über den Dienst Formspree (Formspree Inc., USA) verarbeitet und an die E-Mail-Adresse des Betreibers weitergeleitet. Diese Daten werden ausschließlich zur Bearbeitung Ihrer Anfrage verwendet und nicht an Dritte weitergegeben. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO. Weitere Informationen: <a href="https://formspree.io/legal/privacy-policy" target="_blank" rel="noopener">Formspree Privacy Policy</a>.</p>
+
+    <h2>Newsletter</h2>
+    <p>Wenn Sie den Newsletter abonnieren, wird Ihre E-Mail-Adresse über Mailchimp (The Rocket Science Group LLC, USA) gespeichert und verarbeitet. Sie können den Newsletter jederzeit über den Abmeldelink in der E-Mail abbestellen. Rechtsgrundlage ist Ihre Einwilligung gemäß Art. 6 Abs. 1 lit. a DSGVO. Weitere Informationen: <a href="https://mailchimp.com/legal/privacy/" target="_blank" rel="noopener">Mailchimp Privacy Policy</a>.</p>
+
+    <h2>Google Fonts</h2>
+    <p>Diese Website lädt Schriftarten über Google Fonts (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland). Dabei wird Ihre IP-Adresse an Google übermittelt. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einheitlicher Darstellung). Weitere Informationen: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a>.</p>
+
+    <h2>Ihre Rechte</h2>
+    <p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung Ihrer personenbezogenen Daten sowie das Recht auf Datenübertragbarkeit. Bei Beschwerden können Sie sich an die österreichische Datenschutzbehörde wenden: <a href="https://www.dsb.gv.at" target="_blank" rel="noopener">dsb.gv.at</a>.</p>
+
+    <h2>Cookies</h2>
+    <p>Diese Website verwendet keine Tracking-Cookies. Es werden lediglich technisch notwendige Cookies eingesetzt, die für den Betrieb der Website erforderlich sind.</p>
+
+    <hr class="divider" />
+    <p style="font-size:0.8rem; color:#aaa;">Stand: April 2026</p>
+  </div>
+</Layout>

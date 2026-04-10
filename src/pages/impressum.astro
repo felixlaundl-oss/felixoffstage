@@ -1,0 +1,77 @@
+---
+import Layout from "@/layouts/Layout.astro";
+---
+
+<Layout title="Impressum — Felix Off Stage">
+  <style>
+    .impressum-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+    }
+    .impressum-label { font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--burgund); margin-bottom: 1rem; font-weight: 500; }
+    .impressum-wrap h1 { font-size: 2.2rem; margin-bottom: 2rem; color: var(--black); }
+    .impressum-wrap h2 { font-size: 1.1rem; margin: 2.5rem 0 0.8rem; color: var(--black); font-family: 'Inter', sans-serif; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; font-size: 0.75rem; }
+    .impressum-wrap p { font-size: 0.9rem; color: var(--gray); line-height: 1.8; margin-bottom: 0.5rem; }
+    .impressum-wrap a { color: var(--burgund); border-bottom: 1px solid rgba(107,26,26,0.3); }
+    .impressum-wrap a:hover { opacity: 0.7; }
+    .divider { border: none; border-top: 1px solid var(--gray-light); margin: 2rem 0; }
+    .sources-list { list-style: none; padding: 0; }
+    .sources-list li { font-size: 0.85rem; color: var(--gray); line-height: 1.7; padding: 0.4rem 0; border-bottom: 1px solid var(--gray-light); }
+    .sources-list li:last-child { border-bottom: none; }
+    .sources-list strong { color: var(--black); font-weight: 500; }
+    @media (max-width: 640px) { .impressum-wrap { padding: 3rem 1.5rem 4rem; } }
+  </style>
+
+  <div class="impressum-wrap">
+    <p class="impressum-label">Rechtliches</p>
+    <h1>Impressum</h1>
+
+    <h2>Medieninhaber & Herausgeber</h2>
+    <p>Felix Laundl</p>
+    <p>Postgasse 10, 1010 Wien</p>
+    <p>Österreich</p>
+    <p>E-Mail: <a href="mailto:felix@felixoffstage.com">felix@felixoffstage.com</a></p>
+
+    <h2>Blattlinie</h2>
+    <p>Felix Off Stage ist ein unabhängiges Blog über Theater, Oper und darstellende Kunst in Europa. Zweck dieser Website ist die journalistische und essayistische Berichterstattung über Theateraufführungen und Kulturthemen. Es besteht keine kommerzielle Absicht.</p>
+
+    <h2>Grundlegende Richtung</h2>
+    <p>Unabhängige Theaterkritik und Essays über darstellende Kunst, insbesondere aus Wien und dem deutschsprachigen Raum sowie dem europäischen Ausland.</p>
+
+    <h2>Haftungsausschluss</h2>
+    <p>Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Inhalte externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.</p>
+
+    <hr class="divider" />
+
+    <h2>Bildnachweise — Blog</h2>
+    <ul class="sources-list">
+      <li><strong>Rockstar, Büßer, Jedermann</strong> — Jedermann Reloaded, Burgtheater Wien · Foto: Heike Blenk</li>
+      <li><strong>Weil ich nicht aushalte, wenn wer weint wie du weinst</strong> — Liliom, Burgtheater Wien · Foto: Burgtheater / Tommy Hetzel</li>
+      <li><strong>Schuld hat kein Ablaufdatum</strong> — Caché, Volkstheater Wien · Foto: Volkstheater Wien / Marcela Cruz</li>
+      <li><strong>Zwanzig Minuten König, zwei Stunden Legende</strong> — Ludwig XIX., Theater Akzent Wien · Foto: Volker Schmidt</li>
+      <li><strong>Die Flöte, die nicht aufhört zu klingen</strong> — Die Zauberflöte, Burgtheater Wien · Foto: Marcela Cruz</li>
+      <li><strong>Schach dem Schmerz</strong> — Schachnovelle, Burgtheater Wien · Foto: burgtheater.at / Tommy Hetzel</li>
+    </ul>
+
+    <h2>Bildnachweise — Theaterhäuser & Ressourcen</h2>
+    <ul class="sources-list">
+      <li><strong>Burgtheater Wien</strong> · <a href="http://googleusercontent.com/image_collection/image_retrieval/15973328530091657783_0" target="_blank" rel="noopener">Bildquelle</a></li>
+      <li><strong>Wiener Staatsoper</strong> · <a href="http://googleusercontent.com/image_collection/image_retrieval/14816952295775398425_0" target="_blank" rel="noopener">Bildquelle</a></li>
+      <li><strong>Wiener Festwochen</strong> · <a href="http://googleusercontent.com/image_collection/image_retrieval/15330217151651269265_0" target="_blank" rel="noopener">Bildquelle</a></li>
+      <li><strong>Volksoper Wien</strong> · <a href="http://googleusercontent.com/image_collection/image_retrieval/12437087489938474643_0" target="_blank" rel="noopener">Bildquelle</a></li>
+      <li><strong>Volkstheater Wien</strong> · <a href="http://googleusercontent.com/image_collection/image_retrieval/1576746381073691100_0" target="_blank" rel="noopener">Bildquelle</a></li>
+      <li><strong>Theater in der Josefstadt</strong> · <a href="http://googleusercontent.com/image_collection/image_retrieval/8816225194091533299_0" target="_blank" rel="noopener">Bildquelle</a></li>
+      <li><strong>Theater Akzent Wien</strong> · <a href="http://googleusercontent.com/image_collection/image_retrieval/6577125180389593035_0" target="_blank" rel="noopener">Bildquelle</a></li>
+      <li><strong>Bronski & Grünberg Wien</strong> · <a href="http://googleusercontent.com/image_collection/image_retrieval/16333485249484378764_0" target="_blank" rel="noopener">Bildquelle</a></li>
+      <li><strong>Residenztheater München</strong> · <a href="http://googleusercontent.com/image_collection/image_retrieval/7949134799764073625_0" target="_blank" rel="noopener">Bildquelle</a></li>
+      <li><strong>The Empty Space – Peter Brook</strong> · <a href="http://googleusercontent.com/image_collection/image_retrieval/13801913414555261998_0" target="_blank" rel="noopener">Bildquelle</a></li>
+      <li><strong>nachtkritik.de</strong> · <a href="http://googleusercontent.com/image_collection/image_retrieval/8839602233608925794_0" target="_blank" rel="noopener">Bildquelle</a></li>
+      <li><strong>NT Live – National Theatre London</strong> · <a href="http://googleusercontent.com/image_collection/image_retrieval/13098468958275551971_0" target="_blank" rel="noopener">Bildquelle</a></li>
+      <li><strong>An Actor Prepares – Stanislavski</strong> · <a href="http://googleusercontent.com/image_collection/image_retrieval/15335571906248403631_0" target="_blank" rel="noopener">Bildquelle</a></li>
+    </ul>
+
+    <hr class="divider" />
+    <p style="font-size:0.8rem; color:#aaa;">Stand: April 2026</p>
+  </div>
+</Layout>
