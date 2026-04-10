@@ -1,7 +1,7 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 
-const burgtheater = [
+const buehnen = [
   {
     title: "Burgtheater Wien",
     description: "Das bedeutendste deutschsprachige Theater der Welt. Die Frühjahrsaison 2026 bringt neue Inszenierungen von Karin Henkel und Jossi Wieler — politisches Theater auf höchstem Niveau.",
@@ -14,21 +14,35 @@ const burgtheater = [
     description: "Die Staatsoper bietet diese Saison Highlights wie Wagners Ring-Zyklus und eine neue Produktion von Verdis Otello. Eines der dichtesten Opernprogramme Europas.",
     tag: "Wien · Oper",
     link: "https://www.wiener-staatsoper.at",
-    image: "/images/Wiener Staatssoper.jpg"
+    image: "/images/Wiener Staatsoper.jpg"
   },
   {
     title: "Wiener Festwochen 2026",
     description: "Das wichtigste internationale Theaterfestival Wiens. 2026 mit Gastspielen aus Japan, Brasilien und dem Senegal — Wien als Bühne der Welt.",
     tag: "Wien · Festival",
     link: "https://www.festwochen.at",
-    image: "/images/Wiener Festwochen.webp"
+    image: "/images/Wiener festwochen.webp"
+  },
+  {
+    title: "Volksoper Wien",
+    description: "Das zugänglichste der großen Wiener Musiktheater — Operette, Musical, Ballett und Oper ohne die Schwere des Establishments. Ein unterschätztes Haus mit außergewöhnlichem Ensemble.",
+    tag: "Wien · Musiktheater",
+    link: "https://www.volksoper.at",
+    image: "/images/Volksoper.JPG"
+  },
+  {
+    title: "Volkstheater Wien",
+    description: "Das Volkstheater steht für zugängliches, politisch engagiertes Theater im Herzen Wiens. Unter der Leitung von Kay Voges hat das Haus in den letzten Jahren mutig neue Wege eingeschlagen.",
+    tag: "Wien · Schauspiel",
+    link: "https://www.volkstheater.at",
+    image: "/images/Volkstheater.jpg"
   },
   {
     title: "Theater in der Josefstadt",
     description: "Das älteste noch bespielbare Theater Wiens — gegründet 1788. Bekannt für seine Ensemblekultur und ein Programm das klassische Stücke mit zeitgenössischen Stimmen verbindet.",
     tag: "Wien · Schauspiel",
     link: "https://www.josefstadt.org",
-    image: "/images/JOsefsstadtt.jpg"
+    image: "/images/JOsefsstadt.jpg"
   },
   {
     title: "Theater Akzent Wien",
@@ -53,24 +67,7 @@ const burgtheater = [
   },
 ];
 
-const volkstheater = [
-  {
-    title: "Volksoper Wien",
-    description: "Das zugänglichste der großen Wiener Musiktheater — Operette, Musical, Ballett und Oper ohne die Schwere des Establishments. Ein unterschätztes Haus mit außergewöhnlichem Ensemble.",
-    tag: "Wien · Musiktheater",
-    link: "https://www.volksoper.at",
-    image: "/images/Volksoper.JPG"
-  },
-  {
-    title: "Volkstheater Wien",
-    description: "Das Volkstheater steht für zugängliches, politisch engagiertes Theater im Herzen Wiens. Unter der Leitung von Kay Voges hat das Haus in den letzten Jahren mutig neue Wege eingeschlagen.",
-    tag: "Wien · Schauspiel",
-    link: "https://www.volkstheater.at",
-    image: "/images/Volkstheater.jpg"
-  },
-];
-
-const recommendations = [
+const empfehlungen = [
   {
     title: "The Empty Space — Peter Brook",
     description: "Das wichtigste Buch über Theater das je geschrieben wurde. Brook fragt: Was braucht Theater wirklich? Ein leerer Raum, ein Mensch der geht, ein anderer der zuschaut. Pflichtlektüre.",
@@ -116,7 +113,7 @@ const recommendations = [
     .burgund-line { width: 40px; height: 1.5px; background: var(--burgund); margin: 1.5rem auto 0; }
 
     .resources-body { background: var(--cream); padding: 4rem 0 6rem; }
-    .resources-inner { max-width: 1200px; margin: 0 auto; padding: 0 3rem; }
+    .resources-inner { max-width: 1200px; margin: 0 auto; padding: 0 4rem; }
 
     .section-title { font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--burgund); margin-bottom: 2rem; font-weight: 500; padding-bottom: 0.8rem; border-bottom: 1px solid rgba(107,26,26,0.15); margin-top: 4rem; }
     .section-title:first-of-type { margin-top: 0; }
@@ -160,24 +157,9 @@ const recommendations = [
   <div class="resources-body">
     <div class="resources-inner">
 
-      <p class="section-title">Theaterhäuser</p>
+      <p class="section-title">Bühnen</p>
       <div class="cards">
-        {burgtheater.map(item => (
-          <a href={item.link} target="_blank" rel="noopener" class="card">
-            <img src={item.image} alt={item.title} />
-            <div class="card-body">
-              <p class="card-tag">{item.tag}</p>
-              <h2>{item.title}</h2>
-              <p>{item.description}</p>
-              <span class="card-link">Zum Spielplan →</span>
-            </div>
-          </a>
-        ))}
-      </div>
-
-      <p class="section-title">Volkstheater</p>
-      <div class="cards">
-        {volkstheater.map(item => (
+        {buehnen.map(item => (
           <a href={item.link} target="_blank" rel="noopener" class="card">
             <img src={item.image} alt={item.title} />
             <div class="card-body">
@@ -192,7 +174,7 @@ const recommendations = [
 
       <p class="section-title">Empfehlungen</p>
       <div class="cards">
-        {recommendations.map(item => (
+        {empfehlungen.map(item => (
           <a href={item.link} target="_blank" rel="noopener" class="card">
             <img src={item.image} alt={item.title} />
             <div class="card-body">
